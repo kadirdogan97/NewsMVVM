@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="source"
+            type="com.kadirdogan97.newsexample.model.Sources" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_margin="5sp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvSourceName"
+            android:gravity="center|start"
+            android:textSize="14sp"
+            android:layout_margin="10sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{source.name}"/>
+
+        <TextView
+            android:id="@+id/tvSourceDescription"
+            android:layout_width="match_parent"
+            android:gravity="center|start"
+            android:textSize="11sp"
+            android:layout_margin="10sp"
+            android:textColor="@android:color/black"
+            android:layout_height="wrap_content"
+            android:text="@{source.description}"/>
+
+    </LinearLayout>
+</layout>

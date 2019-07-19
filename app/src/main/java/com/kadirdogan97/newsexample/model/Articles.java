@@ -29,6 +29,25 @@ public class Articles {
     @SerializedName("urlToImage")
     @Expose
     private String urlToImage;
+    @SerializedName("publishedAt")
+    @Expose
+    private String publishedAt;
+
+    public String getPublishedAt() {
+        return publishedAt;
+    }
+
+    public void setPublishedAt(String publishedAt) {
+        this.publishedAt = publishedAt;
+    }
+
+    public ArticleSource getSource() {
+        return source;
+    }
+
+    public void setSource(ArticleSource source) {
+        this.source = source;
+    }
 
     public String getAuthor() {
         return author;

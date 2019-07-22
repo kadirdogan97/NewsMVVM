@@ -16,7 +16,7 @@ public class VMSourcesActivity extends ViewModel {
             return;
         }
         sourcesRepository = SourcesRepository.getInstance();
-        mutableLiveData = sourcesRepository.getSources(  BuildConfig.API_KEY);
+        mutableLiveData = sourcesRepository.getSources(BuildConfig.API_KEY);
     }
     public LiveData<ExampleSources> getSourcesRepository() {
         return mutableLiveData;

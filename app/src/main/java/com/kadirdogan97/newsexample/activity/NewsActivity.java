@@ -1,5 +1,6 @@
 package com.kadirdogan97.newsexample.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
@@ -14,6 +15,9 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -75,7 +79,10 @@ public class NewsActivity extends AppCompatActivity implements NewsAdapter.OnNew
         SharedPreferences sharedPref = getSharedPreferences(getString(R.string.preference_enable),MODE_PRIVATE);
         id = newsArrayList.get(position).getPublishedAt();
         sourceName = newsArrayList.get(position).getSource().getName();
-        author = newsArrayList.get(position).getAuthor();
+        if(newsArrayList.get(position).getAuthor()!= null)
+            author = newsArrayList.get(position).getAuthor();
+        else
+            author = "";
         title = newsArrayList.get(position).getTitle();
         description = newsArrayList.get(position).getDescription();
         url = newsArrayList.get(position).getUrl();
@@ -112,4 +119,5 @@ public class NewsActivity extends AppCompatActivity implements NewsAdapter.OnNew
         newsViewModel.deleteById(id);
 
     }
+
 }

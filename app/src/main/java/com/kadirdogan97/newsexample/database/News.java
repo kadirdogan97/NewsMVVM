@@ -3,6 +3,7 @@ package com.kadirdogan97.newsexample.database;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "news_reading_table")
@@ -46,6 +47,7 @@ public class News {
         this.urlToImage = urlToImage;
     }
 
+    @Ignore
     public News() {
         id = "";
         sourceName = "";

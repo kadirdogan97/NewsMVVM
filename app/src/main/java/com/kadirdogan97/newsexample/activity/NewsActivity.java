@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcel;
 import android.util.Log;
 
 import com.kadirdogan97.newsexample.R;
@@ -17,6 +18,7 @@ import com.kadirdogan97.newsexample.adapter.NewsAdapter;
 import com.kadirdogan97.newsexample.databinding.ActivityNewsBinding;
 import com.kadirdogan97.newsexample.model.ArticleSource;
 import com.kadirdogan97.newsexample.model.Articles;
+import com.kadirdogan97.newsexample.model.Sources;
 import com.kadirdogan97.newsexample.viewmodel.VMNewsActivity;
 
 import java.util.ArrayList;
@@ -30,18 +32,22 @@ public class NewsActivity extends AppCompatActivity implements NewsAdapter.OnNew
     private VMNewsActivity newsViewModel;
     private String id,sourceName,author,title,description,url,urlToImage;
     private Articles news;
+    private Sources sources;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_news);
         newsViewModel = ViewModelProviders.of(this).get(VMNewsActivity.class);
-        newsViewModel.init(getIntent().getStringExtra("source"));
+        sources = getIntent().getParcelableExtra("source");
+        String a = sources.getId();
+        newsViewModel.init(a);
         newsViewModel.getNewsRepository().observe(this, newsResponse -> {
             List<Articles> sourcesList = newsResponse.getArticles();
             newsArrayList.addAll(sourcesList);
             newsAdapter.notifyDataSetChanged();
         });
-        this.news = new Articles();
+        news=new Articles();
+
         setupRecyclerView();
     }
 

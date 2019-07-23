@@ -1,5 +1,7 @@
 package com.kadirdogan97.newsexample.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -17,7 +19,51 @@ import com.google.gson.annotations.SerializedName;
 import com.squareup.picasso.Picasso;
 
 @Entity(tableName = "news_reading_table")
-public class Articles {
+public class Articles implements Parcelable {
+
+    public Articles() {
+    }
+
+    public Articles(Parcel in) {
+        uid = in.readString();
+        sourceName = in.readString();
+        author = in.readString();
+        title = in.readString();
+        description = in.readString();
+        url = in.readString();
+        urlToImage = in.readString();
+        publishedAt = in.readString();
+    }
+
+    public static final Parcelable.Creator<Articles> CREATOR = new Parcelable.Creator<Articles>() {
+        @Override
+        public Articles createFromParcel(Parcel in) {
+            return new Articles(in);
+        }
+
+        @Override
+        public Articles[] newArray(int size) {
+            return new Articles[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(uid);
+        parcel.writeString(sourceName);
+        parcel.writeString(author);
+        parcel.writeString(title);
+        parcel.writeString(description);
+        parcel.writeString(url);
+        parcel.writeString(urlToImage);
+        parcel.writeString(publishedAt);
+    }
+
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "uid")
@@ -26,32 +72,26 @@ public class Articles {
     @ColumnInfo(name = "sourceName")
     private String sourceName;
 
-    @SerializedName("author")
     @ColumnInfo(name = "author")
     private String author;
 
-    @SerializedName("title")
     @ColumnInfo(name = "title")
     private String title;
 
-    @SerializedName("description")
     @ColumnInfo(name = "description")
     private String description;
 
-    @SerializedName("url")
     @ColumnInfo(name = "url")
     private String url;
 
-    @SerializedName("urlToImage")
     @ColumnInfo(name = "urlToImage")
     private String urlToImage;
+
     @Ignore
     @Embedded
-    @SerializedName("source")
     private ArticleSource source;
 
     @Ignore
-    @SerializedName("publishedAt")
     private String publishedAt;
 
     public String getUid() {
@@ -69,19 +109,19 @@ public class Articles {
     public void setSourceName(String sourceName) {
         this.sourceName = sourceName;
     }
-
+    @Ignore
     public String getPublishedAt() {
         return publishedAt;
     }
-
+    @Ignore
     public void setPublishedAt(String publishedAt) {
         this.publishedAt = publishedAt;
     }
-
+    @Ignore
     public ArticleSource getSource() {
         return source;
     }
-
+    @Ignore
     public void setSource(ArticleSource source) {
         this.source = source;
     }
@@ -130,4 +170,6 @@ public class Articles {
     public static void loadImage(ImageView view, String imageUrl) {
         Picasso.get().load(imageUrl).into(view);
     }
+
+
 }

@@ -1,15 +1,29 @@
 package com.kadirdogan97.newsexample.model;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class ArticleSource {
-    @SerializedName("id")
-    @Expose
+
+public class ArticleSource implements Parcelable {
     private String id;
-    @SerializedName("name")
-    @Expose
     private String name;
+
+    protected ArticleSource(Parcel in) {
+        id = in.readString();
+        name = in.readString();
+    }
+
+    public static final Creator<ArticleSource> CREATOR = new Creator<ArticleSource>() {
+        @Override
+        public ArticleSource createFromParcel(Parcel in) {
+            return new ArticleSource(in);
+        }
+
+        @Override
+        public ArticleSource[] newArray(int size) {
+            return new ArticleSource[size];
+        }
+    };
 
     public String getId() {
         return id;
@@ -25,5 +39,16 @@ public class ArticleSource {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(id);
+        parcel.writeString(name);
     }
 }

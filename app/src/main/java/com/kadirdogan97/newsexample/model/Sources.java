@@ -1,36 +1,45 @@
 package com.kadirdogan97.newsexample.model;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class Sources {
-    @SerializedName("id")
-    @Expose
-    private Object id;
-    @SerializedName("name")
-    @Expose
+
+public class Sources implements Parcelable {
+    private String id;
     private String name;
-    @SerializedName("description")
-    @Expose
     private String description;
-    @SerializedName("url")
-    @Expose
     private String url;
-    @SerializedName("category")
-    @Expose
     private String category;
-    @SerializedName("language")
-    @Expose
     private String language;
-    @SerializedName("country")
-    @Expose
     private String country;
 
-    public Object getId() {
+    protected Sources(Parcel in) {
+        id = in.readString();
+        name = in.readString();
+        description = in.readString();
+        url = in.readString();
+        category = in.readString();
+        language = in.readString();
+        country = in.readString();
+    }
+
+    public static final Creator<Sources> CREATOR = new Creator<Sources>() {
+        @Override
+        public Sources createFromParcel(Parcel in) {
+            return new Sources(in);
+        }
+
+        @Override
+        public Sources[] newArray(int size) {
+            return new Sources[size];
+        }
+    };
+
+    public String getId() {
         return id;
     }
 
-    public void setId(Object id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -80,5 +89,21 @@ public class Sources {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(id);
+        parcel.writeString(name);
+        parcel.writeString(description);
+        parcel.writeString(url);
+        parcel.writeString(category);
+        parcel.writeString(language);
+        parcel.writeString(country);
     }
 }

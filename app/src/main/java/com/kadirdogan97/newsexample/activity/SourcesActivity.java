@@ -58,7 +58,7 @@ public class SourcesActivity extends AppCompatActivity implements SourcesAdapter
     public void onSourceClick(int position) {
         Log.d("SourcesActivity: ", "onSourceClick: "+position);
         Intent intent = new Intent(this, NewsActivity.class);
-        intent.putExtra("source", sourcesArrayList.get(position).getId().toString());
+        intent.putExtra("source", sourcesArrayList.get(position));
         startActivity(intent);
     }
     @Override

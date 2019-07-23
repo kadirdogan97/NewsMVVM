@@ -13,18 +13,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.DatabaseConfiguration;
-import androidx.room.InvalidationTracker;
-import androidx.sqlite.db.SupportSQLiteOpenHelper;
 
 import com.kadirdogan97.newsexample.R;
-import com.kadirdogan97.newsexample.database.News;
-import com.kadirdogan97.newsexample.database.NewsDao;
-import com.kadirdogan97.newsexample.database.NewsDatabase;
 import com.kadirdogan97.newsexample.database.NewsDbRepository;
 import com.kadirdogan97.newsexample.databinding.NewsItemBinding;
 import com.kadirdogan97.newsexample.model.Articles;
-import com.kadirdogan97.newsexample.viewmodel.VMNewsActivity;
 
 import java.util.ArrayList;
 
@@ -33,7 +26,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     Context context;
     ArrayList<Articles> articles;
     OnNewsListener mOnNewsListener;
-    VMNewsActivity vmNewsActivity;
     public NewsAdapter(Context context, ArrayList<Articles> articles, OnNewsListener onNewsListener) {
         this.context = context;
         this.articles = articles;
@@ -72,7 +64,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         NewsItemBinding newsItemBinding;
         Boolean clickReading = false;
         OnNewsListener onNewsListener;
-        News news;
+        Articles news;
 
         //NewsDbRepository newsDbRepository = new NewsDbRepository(context);
         String id,sourceName,author,title,description,url,urlToImage;
@@ -134,7 +126,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         void onNewsClick(int position);
         void onReadClick(int position);
     }
-    private static void addReadingNews(final NewsDbRepository dbRepo, News news) {
+    private static void addReadingNews(final NewsDbRepository dbRepo, Articles news) {
         dbRepo.insert(news);
     }
 }

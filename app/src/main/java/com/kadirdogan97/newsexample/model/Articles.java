@@ -2,7 +2,13 @@ package com.kadirdogan97.newsexample.model;
 
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.databinding.BindingAdapter;
+import androidx.room.ColumnInfo;
+import androidx.room.Embedded;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -10,28 +16,59 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.squareup.picasso.Picasso;
 
+@Entity(tableName = "news_reading_table")
 public class Articles {
-    @SerializedName("source")
-    @Expose
-    private ArticleSource source;
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name = "uid")
+    private String uid;
+
+    @ColumnInfo(name = "sourceName")
+    private String sourceName;
+
     @SerializedName("author")
-    @Expose
+    @ColumnInfo(name = "author")
     private String author;
+
     @SerializedName("title")
-    @Expose
+    @ColumnInfo(name = "title")
     private String title;
+
     @SerializedName("description")
-    @Expose
+    @ColumnInfo(name = "description")
     private String description;
+
     @SerializedName("url")
-    @Expose
+    @ColumnInfo(name = "url")
     private String url;
+
     @SerializedName("urlToImage")
-    @Expose
+    @ColumnInfo(name = "urlToImage")
     private String urlToImage;
+    @Ignore
+    @Embedded
+    @SerializedName("source")
+    private ArticleSource source;
+
+    @Ignore
     @SerializedName("publishedAt")
-    @Expose
     private String publishedAt;
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String id) {
+        this.uid = id;
+    }
+
+    public String getSourceName() {
+        return sourceName;
+    }
+
+    public void setSourceName(String sourceName) {
+        this.sourceName = sourceName;
+    }
 
     public String getPublishedAt() {
         return publishedAt;

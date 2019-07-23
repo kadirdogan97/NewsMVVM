@@ -4,21 +4,24 @@ import android.app.Application;
 import android.content.Context;
 import android.os.AsyncTask;
 import androidx.lifecycle.LiveData;
+
+import com.kadirdogan97.newsexample.model.Articles;
+
 import java.util.List;
 
 public class NewsDbRepository {
     private NewsDao mNewsDao;
-    private LiveData<List<News>> mAllNews;
+    private LiveData<List<Articles>> mAllNews;
     public NewsDbRepository(Application application){
         NewsDatabase db = NewsDatabase.getDatabase(application);
         mNewsDao = db.newsDao();
         mAllNews = mNewsDao.getAllNews();
     }
-    public LiveData<List<News>> getmAllNews(){
+    public LiveData<List<Articles>> getmAllNews(){
         return mAllNews;
     }
 
-    public void insert(News news){
+    public void insert(Articles news){
         new insertAsyncTask(mNewsDao).execute(news);
     }
 
@@ -26,7 +29,7 @@ public class NewsDbRepository {
         new deleteAsyncTask(mNewsDao).execute(newsId);
     }
 
-    private static class insertAsyncTask extends AsyncTask<News, Void, Void>{
+    private static class insertAsyncTask extends AsyncTask<Articles, Void, Void>{
         private NewsDao mAsyncTaskDao;
 
         insertAsyncTask(NewsDao newsDao){
@@ -34,7 +37,7 @@ public class NewsDbRepository {
         }
 
         @Override
-        protected Void doInBackground(News... news) {
+        protected Void doInBackground(Articles... news) {
             mAsyncTaskDao.insert(news[0]);
             return null;
         }

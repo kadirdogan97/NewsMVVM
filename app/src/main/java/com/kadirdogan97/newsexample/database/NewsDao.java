@@ -10,22 +10,24 @@ import java.util.List;
 
 import androidx.room.Query;
 
+import com.kadirdogan97.newsexample.model.Articles;
+
 @Dao
 public interface NewsDao {
     @Query("SELECT * FROM news_reading_table")
-    LiveData<List<News>> getAllNews();
+    LiveData<List<Articles>> getAllNews();
 
-    @Query("DELETE FROM news_reading_table WHERE id = :newsId")
+    @Query("DELETE FROM news_reading_table WHERE uid = :newsId")
     void deleteById(String newsId);
 
     @Insert
-    void insert(News news);
+    void insert(Articles news);
 
     @Delete
-    void delete(News news);
+    void delete(Articles news);
 
     @Update
-    void update(News news);
+    void update(Articles news);
 
     @Query("DELETE FROM news_reading_table")
     void deleteAll();

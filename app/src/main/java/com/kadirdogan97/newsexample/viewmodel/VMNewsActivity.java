@@ -5,31 +5,28 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
-
 import com.kadirdogan97.newsexample.BuildConfig;
-import com.kadirdogan97.newsexample.database.News;
 import com.kadirdogan97.newsexample.database.NewsDbRepository;
+import com.kadirdogan97.newsexample.model.Articles;
 import com.kadirdogan97.newsexample.model.ExampleNews;
 import com.kadirdogan97.newsexample.network.NewsRepository;
-
 import java.util.List;
 
 public class VMNewsActivity extends AndroidViewModel {
     private MutableLiveData<ExampleNews> mutableLiveData;
     private NewsRepository newsRepository;
 
-    private LiveData<List<News>> mAllNews;
+    private LiveData<List<Articles>> mAllNews;
     private NewsDbRepository newsDbRepository;
     public VMNewsActivity(@NonNull Application application) {
         super(application);
         newsDbRepository = new NewsDbRepository(application);
         mAllNews = newsDbRepository.getmAllNews();
     }
-    public LiveData<List<News>> getAllNews() {
+    public LiveData<List<Articles>> getAllNews() {
         return mAllNews;
     }
-    public void insert(News news){
+    public void insert(Articles news){
         newsDbRepository.insert(news);
     }
     public void deleteById(String deleteId){

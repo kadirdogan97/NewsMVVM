@@ -1,4 +1,4 @@
-package com.kadirdogan97.newsexample;
+package com.kadirdogan97.newsexample.util;
 
 import androidx.room.TypeConverter;
 
